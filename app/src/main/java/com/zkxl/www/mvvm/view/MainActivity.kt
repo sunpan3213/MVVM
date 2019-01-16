@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.zkxl.www.mvvm.R
 import com.zkxl.www.mvvm.model.RetrofitUtils
-import com.zkxl.www.mvvm.viewmodel.NameViewModel
+import com.zkxl.www.mvvm.viewmodel.TestViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var model: NameViewModel
+    lateinit var model: TestViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         RetrofitUtils.init()
 
-        model = ViewModelProviders.of(this).get(NameViewModel::class.java)
+        model = ViewModelProviders.of(this).get(TestViewModel::class.java)
 
         val observer = Observer<String> { name -> tv.text = name }
 

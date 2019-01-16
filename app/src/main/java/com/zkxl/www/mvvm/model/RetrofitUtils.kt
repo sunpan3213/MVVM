@@ -31,9 +31,9 @@ object RetrofitUtils {
         return apis
     }
 
-    fun getTree(success: (treeBean: TreeBean) -> Unit, error: (t: Throwable) -> Unit):Disposable {
+    fun getTree(success: (treeBean: TreeBean) -> Unit, throwable: (t: Throwable) -> Unit):Disposable {
         val disposable = apis.getTree().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(success, error)
+                .subscribe(success, throwable)
         return disposable
     }
 }

@@ -7,11 +7,11 @@ import com.zkxl.www.mvvm.model.RetrofitUtils
 /**
  * Create by Panda on 2019/1/14
  */
-class NameViewModel : ViewModel() {
+class TestViewModel : ViewModel() {
 
     val liveData: MutableLiveData<String> by lazy {
         val data = MutableLiveData<String>()
-        RetrofitUtils.getTree({ success->data.value=success.data[0].name},{ error->data.value = error.message})
+        RetrofitUtils.getTree({ success->data.value=success.data[0].name},{ throwable->data.value = throwable.message})
         data
     }
 

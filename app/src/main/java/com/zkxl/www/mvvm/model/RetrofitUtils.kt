@@ -1,6 +1,8 @@
 package com.zkxl.www.mvvm.model
 
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModelProvider
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.zkxl.www.mvvm.BuildConfig
 import com.zkxl.www.mvvm.model.bean.StateBean
@@ -28,7 +30,11 @@ object RetrofitUtils {
     fun init(): Apis {
 
         val builder = OkHttpClient.Builder()
-        val loggingInterceptor = HttpLoggingInterceptor()
+        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { msg: String ->
+            if (BuildConfig.DEBUG) {
+                Log.e("panda", msg)
+            }
+        })
         if (BuildConfig.DEBUG) {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         } else {
@@ -54,9 +60,9 @@ object RetrofitUtils {
         return apis
     }
 
-    fun getTree(observer: (bean: StateBean<List<TreeBean>>) -> Unit,error:(t:Throwable)->Unit): Disposable {
+    fun getTree(observer: (bean: StateBean<List<TreeBean>>) -> Unit, error: (t: Throwable) -> Unit): Disposable {
         val disposable = apis.getTree().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer,error)
+                .subscribe(observer, error)
         return disposable
     }
 }

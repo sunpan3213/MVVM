@@ -11,18 +11,18 @@ import com.zkxl.www.mvvm.model.bean.TreeBean
  */
 class TestViewModel : ViewModel() {
 
-    lateinit var liveData: MutableLiveData<StateBean<TreeBean>>
+    lateinit var liveData: MutableLiveData<StateBean<List<TreeBean>>>
 
-    fun getData(): MutableLiveData<StateBean<TreeBean>> {
+    fun getData(): MutableLiveData<StateBean<List<TreeBean>>> {
         liveData = MutableLiveData()
 
         liveData.postValue(StateBean.loading(null))
-        RetrofitUtils.getTree { t ->
+        RetrofitUtils.getTree({ t ->
             when (t.errorCode) {
-                0 -> liveData.postValue(StateBean.success(t))
-                else -> liveData.postValue(StateBean.error(t.errorMsg, t))
+                0 -> liveData.postValue(StateBean.success(t.data))
+                else -> liveData.postValue(StateBean.error(t.errorMsg, t.data))
             }
-        }
+        }, { ex -> liveData.postValue(StateBean.error(ex.message!!, null)) })
         return liveData
     }
 

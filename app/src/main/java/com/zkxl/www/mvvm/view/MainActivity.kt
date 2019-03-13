@@ -27,15 +27,15 @@ class MainActivity : AppCompatActivity() {
 
         model = ViewModelProviders.of(this).get(TestViewModel::class.java)
 
-        val observer = Observer<StateBean<TreeBean>> { res ->
-            when (res?.code) {
+        val observer = Observer<StateBean<List<TreeBean>>> { res ->
+            when (res?.errorCode) {
                 StateBean.SUCCESS -> {
                     finishLoading()
-                    tv.text = res.data?.data?.get(0)?.name
+                    tv.text = res.data?.get(0)?.name
                 }
                 StateBean.ERROR -> {
                     finishLoading()
-                    Toast.makeText(this, res.msg, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, res.errorMsg, Toast.LENGTH_SHORT).show()
                 }
                 StateBean.LOADING -> showLoading()
             }

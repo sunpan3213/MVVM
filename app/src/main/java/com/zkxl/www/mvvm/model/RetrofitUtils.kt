@@ -1,13 +1,18 @@
 package com.zkxl.www.mvvm.model
 
+import android.arch.lifecycle.MutableLiveData
+import com.google.gson.GsonBuilder
 import com.zkxl.www.mvvm.BuildConfig
+import com.zkxl.www.mvvm.model.bean.StateBean
 import com.zkxl.www.mvvm.model.bean.TreeBean
+import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.function.Consumer
 
 /**
  * Create by Panda on 2019/1/15
@@ -19,7 +24,7 @@ object RetrofitUtils {
     fun init(): Apis {
         val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .baseUrl(
                         if (BuildConfig.DEBUG) {//测试版
                             "http://www.wanandroid.com"
@@ -31,9 +36,10 @@ object RetrofitUtils {
         return apis
     }
 
-    fun getTree(success: (treeBean: TreeBean) -> Unit, throwable: (t: Throwable) -> Unit):Disposable {
+    fun getTree(observer: (treebean: TreeBean) -> Unit): Disposable {
         val disposable = apis.getTree().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(success, throwable)
+                .subscribe(observer)
         return disposable
     }
 }
+

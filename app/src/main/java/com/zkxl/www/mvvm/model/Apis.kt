@@ -1,6 +1,6 @@
 package com.zkxl.www.mvvm.model
 
-import com.zkxl.www.mvvm.model.bean.StateBean
+import com.zkxl.www.mvvm.model.bean.Bean
 import com.zkxl.www.mvvm.model.bean.TreeBean
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -11,6 +11,6 @@ import retrofit2.http.GET
 interface Apis {
 
     @GET("/project/tree/json")
-    fun getTree(): Observable<StateBean<List<TreeBean>>>
+    fun getTree(): Observable<Bean<List<TreeBean>>>
 
 }

@@ -1,20 +1,16 @@
 package com.zkxl.www.mvvm.model
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModelProvider
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.zkxl.www.mvvm.BuildConfig
-import com.zkxl.www.mvvm.model.bean.StateBean
+import com.zkxl.www.mvvm.model.bean.Bean
 import com.zkxl.www.mvvm.model.bean.TreeBean
-import io.reactivex.Observer
+import com.zkxl.www.mvvm.utils.LogUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.function.Consumer
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
@@ -30,11 +26,7 @@ object RetrofitUtils {
     fun init(): Apis {
 
         val builder = OkHttpClient.Builder()
-        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { msg: String ->
-            if (BuildConfig.DEBUG) {
-                Log.e("panda", msg)
-            }
-        })
+        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { msg -> LogUtils.e(msg) })//不重写,部分手机平板需要打开日志
         if (BuildConfig.DEBUG) {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         } else {
@@ -60,7 +52,7 @@ object RetrofitUtils {
         return apis
     }
 
-    fun getTree(observer: (bean: StateBean<List<TreeBean>>) -> Unit, error: (t: Throwable) -> Unit): Disposable {
+    fun getTree(observer: (bean: Bean<List<TreeBean>>) -> Unit, error: (t: Throwable) -> Unit): Disposable {
         val disposable = apis.getTree().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer, error)
         return disposable

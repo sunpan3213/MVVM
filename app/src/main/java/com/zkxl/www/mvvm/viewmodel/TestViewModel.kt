@@ -17,12 +17,17 @@ class TestViewModel : ViewModel() {
         liveData = MutableLiveData()
 
         liveData.postValue(Bean.loading(null))
-        RetrofitUtils.getTree({ t ->
-            when (t.errorCode) {
-                0 -> liveData.postValue(Bean.success(t.data))
-                else -> liveData.postValue(Bean.error(t.errorMsg, t.data))
-            }
-        }, { ex -> liveData.postValue(Bean.error(ex.message!!, null)) })
+        RetrofitUtils.getTree(
+                { t ->
+                    when (t.errorCode) {
+                        0 -> liveData.postValue(Bean.success(t.data))
+                        else -> liveData.postValue(Bean.error(t.errorMsg, t.data))
+                    }
+                },
+                { ex ->
+                    liveData.postValue(Bean.error(ex.message!!, null))
+                }
+        )
         return liveData
     }
 

@@ -1,10 +1,7 @@
 package com.zkxl.www.mvvm.view
 
-import android.app.ProgressDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.widget.Toast
 import com.zkxl.www.mvvm.BaseActivity
 import com.zkxl.www.mvvm.R

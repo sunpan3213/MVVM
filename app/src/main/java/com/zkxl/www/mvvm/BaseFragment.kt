@@ -3,6 +3,7 @@ package com.zkxl.www.mvvm
 import android.annotation.SuppressLint
 import android.app.Fragment
 import android.app.ProgressDialog
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,6 +50,9 @@ abstract class BaseFragment : Fragment() {
         initEvent()
     }
 
+    /*
+   * 适合viewpager+fragment
+   */
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (userVisibleHint) {
@@ -84,9 +88,25 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    /*
+    * 适合fragment的show和hide
+    */
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (hidden) {
+            hide()
+        } else {
+            show()
+        }
+    }
+
     protected open fun viewInvisible() {}
 
     protected open fun doLazy() {}
+
+    protected open fun hide() {}
+
+    protected open fun show() {}
 
     fun showLoading() {
         if (dialog == null) {

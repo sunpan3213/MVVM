@@ -1,15 +1,17 @@
 package com.zkxl.www.mvvm
 
 import android.annotation.SuppressLint
-import android.app.Fragment
 import android.app.ProgressDialog
 import android.app.ProgressDialog.show
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.zkxl.www.mvvm.viewmodel.TestViewModel
 
 /**
  * Create by Panda on 2019/3/14
@@ -34,11 +36,12 @@ abstract class BaseFragment : Fragment() {
         init(getArguments())
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(mContext).inflate(getLayoutId(), container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isViewCreated = true
         initView()
@@ -64,7 +67,7 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    open protected fun init(bundle: Bundle) {
+    open protected fun init(bundle: Bundle?) {
 
     }
 

@@ -113,9 +113,7 @@ abstract class BaseFragment : Fragment() {
 
     fun showLoading() {
         if (dialog == null) {
-            dialog = ProgressDialog(mContext)
-            dialog?.setMessage("loading")
-            dialog?.setCanceledOnTouchOutside(false)
+            dialog = CustomProgressDialog(mContext!!,R.style.CustomDialog)
         }
         if (dialog != null && !dialog!!.isShowing) {
             dialog?.show()

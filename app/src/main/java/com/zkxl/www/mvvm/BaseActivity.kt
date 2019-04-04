@@ -43,9 +43,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showLoading() {
         if (dialog == null) {
-            dialog = ProgressDialog(this)
-            dialog?.setMessage("loading")
-            dialog?.setCanceledOnTouchOutside(false)
+            dialog = CustomProgressDialog(this,R.style.CustomDialog)
         }
         if (dialog != null && !dialog!!.isShowing) {
             dialog?.show()

@@ -35,12 +35,12 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        model.getData().observe(this, observer)
+        model.liveData.observe(this, observer)
     }
 
     override fun initEvent() {
         bt.setOnClickListener {
-            model.liveData.value = Bean.error("change",null)
+            model.getData()
         }
     }
 

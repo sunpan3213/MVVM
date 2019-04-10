@@ -11,10 +11,9 @@ import com.zkxl.www.mvvm.model.bean.TreeBean
  */
 class TestViewModel : ViewModel() {
 
-    lateinit var liveData: MutableLiveData<Bean<List<TreeBean>>>
+    val liveData: MutableLiveData<Bean<List<TreeBean>>> = MutableLiveData()
 
     fun getData(): MutableLiveData<Bean<List<TreeBean>>> {
-        liveData = MutableLiveData()
 
         liveData.postValue(Bean.loading(null))
         RetrofitUtils.getTree(

@@ -8,8 +8,13 @@ import com.zkxl.www.mvvm.model.RetrofitUtils
  */
 class MyApp :Application(){
 
+    companion object{
+        lateinit var app:Application
+    }
+
     override fun onCreate() {
         super.onCreate()
+        app = this
         RetrofitUtils.init()
     }
 }

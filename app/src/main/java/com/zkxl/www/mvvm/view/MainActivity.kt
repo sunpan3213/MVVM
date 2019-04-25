@@ -18,6 +18,7 @@ class MainActivity : BaseActivity() {
         return R.layout.activity_main
     }
 
+
     override fun initData() {
         model = ViewModelProviders.of(this).get(TestViewModel::class.java)
 

@@ -35,7 +35,9 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
-    abstract fun initData()
+    open protected fun initData() {
+
+    }
 
     open protected fun initEvent() {
 
@@ -43,7 +45,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showLoading() {
         if (dialog == null) {
-            dialog = CustomProgressDialog(this,R.style.CustomDialog)
+            dialog = CustomProgressDialog(this, R.style.CustomDialog)
         }
         if (dialog != null && !dialog!!.isShowing) {
             dialog?.show()
@@ -64,26 +66,20 @@ abstract class BaseActivity : AppCompatActivity() {
         mToast?.show()
     }
 
-    fun goActivity(clz: Class<*>) {
-        val intent = Intent(this, clz)
-        startActivity(intent)
+    inline fun <reified T> go() {
+        startActivity(Intent(this, T::class.java))
     }
 
-    fun goActivity(clz: Class<*>, bundle: Bundle) {
-        val intent = Intent(this, clz)
-        intent.putExtras(bundle)
-        startActivity(intent)
+    inline fun <reified T> go(bundle: Bundle) {
+        startActivity(Intent(this, T::class.java).putExtras(bundle))
     }
 
-    fun goActivityForResult(clz: Class<*>, req: Int) {
-        val intent = Intent(this, clz)
-        startActivityForResult(intent, req)
+    inline fun <reified T> goForResult(req: Int) {
+        startActivityForResult(Intent(this, T::class.java), req)
     }
 
-    fun goActivityForResult(clz: Class<*>, req: Int, bundle: Bundle) {
-        val intent = Intent(this, clz)
-        intent.putExtras(bundle)
-        startActivityForResult(intent, req)
+    inline fun <reified T> goForResult(req: Int, bundle: Bundle) {
+        startActivityForResult(Intent(this, T::class.java).putExtras(bundle), req)
     }
 
 }

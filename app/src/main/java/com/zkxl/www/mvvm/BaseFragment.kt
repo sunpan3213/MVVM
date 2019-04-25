@@ -5,6 +5,7 @@ import android.app.ProgressDialog
 import android.app.ProgressDialog.show
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -77,7 +78,9 @@ abstract class BaseFragment : Fragment() {
 
     }
 
-    abstract protected fun initData()
+    open protected fun initData() {
+
+    }
 
     open protected fun initEvent() {
 
@@ -113,7 +116,7 @@ abstract class BaseFragment : Fragment() {
 
     fun showLoading() {
         if (dialog == null) {
-            dialog = CustomProgressDialog(mContext!!,R.style.CustomDialog)
+            dialog = CustomProgressDialog(mContext!!, R.style.CustomDialog)
         }
         if (dialog != null && !dialog!!.isShowing) {
             dialog?.show()
@@ -132,5 +135,21 @@ abstract class BaseFragment : Fragment() {
             mToast?.setText(str)
         }
         mToast?.show()
+    }
+
+    inline fun <reified T> go() {
+        startActivity(Intent(mContext, T::class.java))
+    }
+
+    inline fun <reified T> go(bundle: Bundle) {
+        startActivity(Intent(mContext, T::class.java).putExtras(bundle))
+    }
+
+    inline fun <reified T> goForResult(req: Int) {
+        startActivityForResult(Intent(mContext, T::class.java), req)
+    }
+
+    inline fun <reified T> goForResult(req: Int, bundle: Bundle) {
+        startActivityForResult(Intent(mContext, T::class.java).putExtras(bundle), req)
     }
 }

@@ -42,6 +42,7 @@ class MainActivity : BaseActivity() {
     override fun initEvent() {
         bt.setOnClickListener {
             model.getData()
+            go<MainActivity>()
         }
     }
 

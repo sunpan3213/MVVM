@@ -1,11 +1,9 @@
 package com.zkxl.www.mvvm.model
 
-import android.widget.Toast
-import com.zkxl.www.mvvm.MyApp
 import com.zkxl.www.mvvm.model.bean.Bean
+import com.zkxl.www.mvvm.viewmodel.BaseViewModel
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import java.lang.Exception
 
 /**
  * create by panda

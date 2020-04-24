@@ -1,6 +1,7 @@
 package com.zkxl.www.mvvm.model
 
 import com.zkxl.www.mvvm.model.bean.Bean
+import com.zkxl.www.mvvm.viewmodel.BaseViewModel
 
 /**
  * create by panda

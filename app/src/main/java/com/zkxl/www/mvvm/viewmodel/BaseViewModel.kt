@@ -1,4 +1,4 @@
-package com.zkxl.www.mvvm.model
+package com.zkxl.www.mvvm.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

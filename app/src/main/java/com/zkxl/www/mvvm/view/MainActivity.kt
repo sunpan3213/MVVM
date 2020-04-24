@@ -9,6 +9,7 @@ import com.zkxl.www.mvvm.model.bean.Bean
 import com.zkxl.www.mvvm.model.bean.TreeBean
 import com.zkxl.www.mvvm.viewmodel.TestViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.random.Random
 
 class MainActivity : BaseActivity() {
 
@@ -23,7 +24,7 @@ class MainActivity : BaseActivity() {
         model = ViewModelProviders.of(this).get(TestViewModel::class.java)
 
         model.liveData.observe(this, Observer<List<TreeBean>> { data ->
-            tv.text = data!![0].name
+            tv.text = data!![Random.nextInt(data.size)].name
         })
         model.stateLiveData.observe(this, Observer<Int> { t ->
             when (t) {
